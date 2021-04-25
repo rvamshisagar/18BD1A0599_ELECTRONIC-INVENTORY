@@ -1,0 +1,29 @@
+header{
+    border: solid rgb(180, 13, 13);
+    background-color: lightgreen;
+}
+.head{
+    padding: 5px;
+}
+.table,tr,td{
+    border:1px solid black;
+}
+th{
+    background-color: darksalmon;
+}
+th,td{
+    padding: 15px;
+    text-align:left;
+}
+tr:nth-child(odd){
+    background-color: lightgray;
+}
+form div label{
+    float: left;
+    width: 50%;
+    font: bold 0.4cm Arial;
+}
+input{
+    border:1px solid black;
+    width: 250px;
+}

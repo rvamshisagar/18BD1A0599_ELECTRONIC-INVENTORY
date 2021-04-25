@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronic Inventory</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <center><h1>Electronic Inventory</h1></center>
+    </header>
+    <div class="head">
+        <nav class="navbar">
+            <a href="Home.ejs"></a>
+            <li class="nav-item active"><a href="#">Home</a></li>
+            <li class="nav-item"><a href="create">Add</a></li>
+            <li class="nav-item"><a href="update">Update</a></li>
+            <li class="nav-item"><a href="delete">Delete</a></li>
+        </nav>
+    </div>
+    <h3>The following is the phones record in the store</h3>
+    <center>
+        <table id="table">
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Model Name</th>
+                <th>Color</th>
+                <th>Feature</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+            <% for(var i=0;i<data.length;i++) {%>
+                <tr>
+                    <td><%= data[i].pid %></td>
+                    <td><%= data[i].name %></td>
+                    <td><%= data[i].model %></td>
+                    <td><%= data[i].color %></td>
+                    <td><%= data[i].feature %></td>
+                    <td><%= data[i].price %></td>
+                    <td><%= data[i].stock %></td>
+                </tr>
+                <% sum=sum+parseInt(data[i].stock) %>
+                <% } %>
+        </table>
+        <h1>
+            The total Stock present in store is <%=sum%> mobiles.
+        </h1>
+    </center>
+</body>
+</html>
