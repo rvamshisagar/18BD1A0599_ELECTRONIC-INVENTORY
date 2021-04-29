@@ -8,8 +8,8 @@ var n;
 MongoClient.connect('mongodb://Localhost:27017/ElectronicInventory',(err,database)=>{
     if(err) return console.log(err)
     db=database.db('ElectronicInventory')
-    app.listen(2021,() =>{
-        console.log('Listening to port number 2021')
+    app.listen(1021,() =>{
+        console.log('Listening to port number 1021')
     })
 })
 
@@ -33,43 +33,73 @@ app.get('/create',(req,res)=>{
 })
 
 app.get('/update',(req,res)=>{
-    res.render('update.ejs')
+    const pid=req.query.pid
+    res.render('update.ejs',{
+        id:pid
+    })
 })
 
 app.get('/delete',(req,res)=>{
-    res.render('delete.ejs')
+    const pid=req.query.pid 
+    res.render('delete.ejs',{
+        id:pid
+    })
 })
 
 app.post('/AddData',(req,res)=>{
+    let values=Object.keys(req.body);
+    for(let i=0;i<values.length;i++){
+        if(req.body[values[i]]==""){
+            res.render('add.ejs')
+        }
+    }
     db.collection('phones').save(req.body, (err, result)=>{
         if(err) return console.log(err)
     res.redirect('/')
     })
 })
 
-app.post('/update',(req,res)=>{
-    db.collection('phones').find().toArray((err,result) => {
-        if(err) return console.log(err)
-        for(var i=0;i<result.length;i++){
-            if(result[i].pid==req.body.pid){
-                var s=result[i].stock
-                break
-            }
+app.post('/updateData',(req,res)=>{
+    let values=Object.keys(req.body);
+    let b=false;
+    for(let i=0;i<values.length;i++){
+        if(req.body[values[i]]==""){
+            b=true;
         }
-        db.collection('phones').findOneAndUpdate({pid:req.body.pid},{
-        $set: {stock:parseInt(s)+parseInt(req.body.stock)}},{sort:{ id:-1}},
-        (err,result)=>{
-            if(err) return res.send(err)
-         console.log(req.body.pid+' Stock updated')
-         res.redirect('/')
-    })
-})
+    }
+    if(b==true){
+        res.redirect('/update')
+    }
+    else{
+        db.collection('phones').find().toArray((err,result) => {
+            if(err) return console.log(err)
+            for(var i=0;i<result.length;i++){
+                if(result[i].pid==req.body.pid){
+                    var s=result[i].stock
+                    break
+                }
+            }
+            db.collection('phones').findOneAndUpdate({pid:req.body.pid},{
+            $set: {stock:parseInt(s)+parseInt(req.body.stock)}},{sort:{ id:-1}},
+            (err,result)=>{
+                if(err) return res.send(err)
+            console.log(req.body.pid+' Stock updated')
+            res.redirect('/')
+            })
+        })
+    }
 })
 
-app.post('/delete',(req,res)=>{
-    db.collection('phones').findOneAndDelete({pid:req.body.pid},(err,result)=>{
-        if(err) console.log(err)
-        console.log(req.body.pid+' stock deleted')
-    res.redirect('/')
-    })
+app.post('/deleteData',(req,res)=>{
+    if(req.body.pid==""){
+        res.redirect('/delete')
+    }
+    else{
+        db.collection('phones').findOneAndDelete({pid:req.body.pid},(err,result)=>{
+            if(err) console.log(err)
+            console.log(req.body.pid+' stock deleted')
+        res.redirect('/')
+        })
+    }
 })
+

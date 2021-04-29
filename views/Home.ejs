@@ -5,48 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electronic Inventory</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <center><h1>Electronic Inventory</h1></center>
-    </header>
-    <div class="head">
-        <nav class="navbar">
-            <a href="Home.ejs"></a>
-            <li class="nav-item active"><a href="#">Home</a></li>
-            <li class="nav-item"><a href="create">Add</a></li>
-            <li class="nav-item"><a href="update">Update</a></li>
-            <li class="nav-item"><a href="delete">Delete</a></li>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+	<div class="wrapper">
+		<!-- Navbar -->
+		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item">
+				    <a class="nav-link" data-widget="pushmenu" href="#" role="button" >
+                        <i class="fas fa-bars"></i>
+                    </a>
+				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+				    <a href="/" class="nav-link">Home</a>
+				</li>
+            </ul>
         </nav>
+		<!-- /.navbar -->
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Brand Logo -->
+			<a href="#" class="brand-link">
+			  <span class="brand-text font-weight-light">Mobile Phone Inventory</span>
+            </a>
+			<!-- Sidebar -->
+			<div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                    <i class="nav-icon far fa-circle text-info"></i>
+                    <p class="text">Sales Details</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                <a href="/create" class="nav-link">
+                <i class="nav-icon far fa-circle text-info"></i>
+                <p>Add Product</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/update" class="nav-link">
+                <i class="nav-icon far fa-circle text-info"></i>
+                <p class="text">Update Sales</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/delete" class="nav-link">
+                <i class="nav-icon far fa-circle text-info"></i>
+                <p class="text">Delete Sales</p>
+                </a>
+            </li>            
+            </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+            <!-- /.sidebar -->
+		</aside>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>Mobile Phone Inventory</h1>
+			</section>
+			<section class="content">
+                <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Stock Details</h3>
+                
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                          <i class="fas fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                          <i class="fas fa-times"></i></button>
+                      </div>
+                    </div>
+                </div>
+            </section>
+            <div class="card">
+                <table class="table table-striped table-head-fixed text-nowrap">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%" >Product ID</th>
+                            <th style="width: 10%" >Mobile Name</th>
+                            <th style="width: 10%" >Model Name</th>
+                            <th style="width: 10%" >Color</th>
+                            <th style="width: 10%" >Feature</th>
+                            <th style="width: 15%" >Price</th>
+                            <th style="width: 10%" >Stock</th>
+                            <th style="width: 20%" > </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tr>
+                        <% for(var i=data.length-1;i>=0;i--) {%>
+                        <tr>
+                            <td><%= data[i].pid %></td>
+                            <td><%= data[i].name %></td>
+                            <td><%= data[i].model %></td>
+                            <td><%= data[i].color %></td>
+                            <td><%= data[i].feature %></td>
+                            <td><%= data[i].price %></td>
+                            <td><%= data[i].stock %></td>
+                            <td class="project-actions text-center">
+                                <a class="btn btn-info btn-sm" href="/Update?pid=<%= data[i].pid %>"> <i class="fas fa-pencil-alt"></i>Edit</a>
+                                <a class="btn btn-danger btn-sm" href="/Delete?pid=<%= data[i].pid%>" ><i class="fas fa-trash"></i>Delete</a>
+                            </td>
+                        </tr>
+                        <% sum=sum+parseInt(data[i].stock) %>
+                        <% } %>
+                    </tbody>
+                </table>
+                <center><h2>Total stock present : <%= sum %></h2></center>
+            </div>
+        </div>
     </div>
-    <h3>The following is the phones record in the store</h3>
-    <center>
-        <table id="table">
-            <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Model Name</th>
-                <th>Color</th>
-                <th>Feature</th>
-                <th>Price</th>
-                <th>Stock</th>
-            </tr>
-            <% for(var i=0;i<data.length;i++) {%>
-                <tr>
-                    <td><%= data[i].pid %></td>
-                    <td><%= data[i].name %></td>
-                    <td><%= data[i].model %></td>
-                    <td><%= data[i].color %></td>
-                    <td><%= data[i].feature %></td>
-                    <td><%= data[i].price %></td>
-                    <td><%= data[i].stock %></td>
-                </tr>
-                <% sum=sum+parseInt(data[i].stock) %>
-                <% } %>
-        </table>
-        <h1>
-            The total Stock present in store is <%=sum%> mobiles.
-        </h1>
-    </center>
 </body>
 </html>

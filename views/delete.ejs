@@ -5,15 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete stock</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> 
 </head>
-<body>
-    <center>
-        <h1>Enter the product ID to be deleted.</h1>
-        <form action="/delete" method="POST">
-            <label for="product id">Product ID</label>
-            <input type="number" name="pid" class="ff"><br><br>
-            <button type="submit">Submit</button>
-        </form>
-    </center>
-    </body>
+</head>
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<!-- Navbar -->
+		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item">
+				<a class="nav-link" data-widget="pushmenu" href="#" role="button"> 
+                      <i class="fas fa-bars"></i></a>
+				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+				<a href="/" class="nav-link">Home</a>
+				</li>
+            </ul>
+        </nav>
+		<!-- /.navbar -->
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Brand Logo -->
+			<a href="#" class="brand-link">
+			  <span class="brand-text font-weight-light">Mobile Phone Inventory</span>
+            </a>
+			<!-- Sidebar -->
+			<div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="/" class="nav-link ">
+                    <i class="nav-icon far fa-circle text-info"></i>
+                    <p class="text">Sales Details</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                <a href="/create" class="nav-link">
+                <i class="nav-icon far fa-circle text-info"></i>
+                <p>Add Product</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/update" class="nav-link">
+                <i class="nav-icon far fa-circle text-info"></i>
+                <p class="text">Update Sales</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/delete" class="nav-link active">
+                <i class="nav-icon far fa-circle text-info"></i>
+                <p class="text">Delete Sales</p>
+                </a>
+            </li>            
+            </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+            <!-- /.sidebar -->
+		</aside>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>Mobile Phone Inventory</h1>
+			</section>
+			<section class="content">
+                <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Stock Details</h3>
+                
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                          <i class="fas fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                          <i class="fas fa-times"></i></button>
+                      </div>
+                    </div>
+                </div>
+            </section>
+            <div class="card">
+            <center>
+                <h1>Enter the product ID to be deleted.</h1><br>
+                <form action="/deleteData" method="POST">
+                    <label for="Id">Product ID</label>
+                    <input type="number" id="Id" value="<%= id %>" name="pid" class="ff"><br><br>
+                    <button type="submit" value="delete">Delete</button>
+                </form>
+            </center>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
