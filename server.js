@@ -3,8 +3,11 @@ const app=express()
 const bodyparser = require('body-parser');
 const request = require('express');
 const MongoClient= require('mongodb').MongoClient
+const fs=require("fs");
+const json2xls= require("json2xls");
 var db;
 var n;
+
 MongoClient.connect('mongodb://Localhost:27017/ElectronicInventory',(err,database)=>{
     if(err) return console.log(err)
     db=database.db('ElectronicInventory')
@@ -21,6 +24,17 @@ app.use(express.static('public'))
 app.get('/',(req,res)=>{
     db.collection('phones').find().toArray( (err,result)=>{
         if(err) return console.log(err)
+    fs.writeFile("public/phones.json",JSON.stringify(result,null,4),(err)=>{
+        if(err){
+            console.log(err);
+        }
+    })
+    xls=json2xls(result);
+    fs.writeFile("public/phones.xlsx",xls,'binary',(err)=>{
+        if(err){
+            console.log(err);
+        }
+    })
     res.render('Home.ejs', {
             data: result, 
             sum: 0
