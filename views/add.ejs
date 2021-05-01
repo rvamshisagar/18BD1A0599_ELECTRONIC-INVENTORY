@@ -61,7 +61,19 @@
                     <i class="nav-icon far fa-circle text-info"></i>
                     <p class="text">Delete Sales</p>
                     </a>
-                </li>            
+                </li>     
+                <li class="nav-item">
+                    <a href="phones.xlsx" class="nav-link">
+                        <i class="nav-icon far fa-circle text-info"></i>
+                        <p class="text">Download Excel</p>
+                    </a>
+                </li> 
+                <li class="nav-item">
+                    <a href="phones.json"Download class="nav-link">
+                        <i class="nav-icon far fa-circle text-info"></i>
+                        <p class="text">Download Json</p>
+                    </a>
+                </li>         
                 </ul>
                 </nav>
             <!-- /.sidebar-menu -->
@@ -119,7 +131,7 @@
                 </div>
                 <div>
                     <label for="stock">Stock</label>
-                    <input type="number" name="stock" class="ff"><br><br>
+                    <input type="number" name="stock" class="ff" oninput="validity.valid||(value='');"><br><br>
                 </div>           
                 </table>
                 <script>
